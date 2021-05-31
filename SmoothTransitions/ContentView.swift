@@ -6,185 +6,224 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
+
+struct AppState : Equatable {
+	let items = (0...3).map { _ in Item() }
+	let cardSize = CGSize(width: 80, height: 100)
+	var magnification: CGFloat = 1
+	var isFullScreen = false
+	var currentID: Item.ID? = nil
+	var fullscreenSize: CGSize = .zero
+	var slowAnimations = false
+}
+
+enum AppAction{
+	case closingTapped
+	case openTapped(Item.ID)
+	case openPinchedChanged(Item.ID, CGFloat)
+	case openPinchedEnded
+	case closePinchedChanged(CGFloat)
+	case closePinchedEnded
+	case toggleAnimations
+	case fullscreenSize(CGSize?)
+}
+
+let appReducer = Reducer<AppState, AppAction, ()>() {state,action,_ in
+	switch action {
+	case .closingTapped:
+		state.magnification = 0
+		state.isFullScreen = false
+		state.currentID = nil
+	case let .openTapped(id):
+		state.currentID = id
+		state.magnification = 1
+		state.isFullScreen = true
+	case let .openPinchedChanged(id,delta):
+		state.currentID = id
+		state.magnification = max(0, min(1,1 - (2.0 - delta)))
+	case .openPinchedEnded:
+		if state.magnification > 0.3 {
+			state.magnification = 1
+			state.isFullScreen = true
+		} else {
+			state.magnification = 0
+			state.isFullScreen = false
+			state.currentID = nil
+		}
+	case let .closePinchedChanged(delta):
+		state.magnification =  max(0, min(1,delta))
+	case .closePinchedEnded:
+		if state.magnification < 0.7 {
+			state.magnification = 0
+			state.isFullScreen = false
+			state.currentID = nil
+		} else {
+			state.magnification = 1
+		}
+	case .toggleAnimations:
+		state.slowAnimations.toggle()
+	case let .fullscreenSize(endSize):
+		state.fullscreenSize = endSize ?? .zero
+		
+	}
+	
+	return .none
+}
 
 extension CGSize {
-    static func /(lhs: Self, rhs: CGFloat) -> Self {
-        CGSize(width: lhs.width/rhs, height: lhs.height/rhs)
-    }
-    
-    static func *(lhs: Self, rhs: CGFloat) -> Self {
-        CGSize(width: lhs.width*rhs, height: lhs.height*rhs)
-    }
-    
-    static func -(lhs: Self, rhs: Self) -> Self {
-        CGSize(width: lhs.width-rhs.width, height: lhs.height-rhs.height)
-    }
-    
-    static func +(lhs: Self, rhs: Self) -> Self {
-        CGSize(width: lhs.width+rhs.width, height: lhs.height+rhs.height)
-    }
+	static func /(lhs: Self, rhs: CGFloat) -> Self {
+		CGSize(width: lhs.width/rhs, height: lhs.height/rhs)
+	}
+	
+	static func *(lhs: Self, rhs: CGFloat) -> Self {
+		CGSize(width: lhs.width*rhs, height: lhs.height*rhs)
+	}
+	
+	static func -(lhs: Self, rhs: Self) -> Self {
+		CGSize(width: lhs.width-rhs.width, height: lhs.height-rhs.height)
+	}
+	
+	static func +(lhs: Self, rhs: Self) -> Self {
+		CGSize(width: lhs.width+rhs.width, height: lhs.height+rhs.height)
+	}
 }
 
-struct Item: Identifiable {
-    var id = UUID()
-    var color = Color(hue: .random(in: 0...1), saturation: 0.9, brightness: 0.9)
+struct Item: Identifiable, Equatable {
+	var id = UUID()
+	var color = Color(hue: .random(in: 0...1), saturation: 0.9, brightness: 0.9)
 }
 
-struct CardView: View {
-    var item: Item
-    
-    var body: some View {
-        Text("Hello, World!")
-            .padding()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(item.color)
-            )
-    }
+struct CardView: View, Equatable {
+	var item: Item
+	
+	var body: some View {
+		Text("Hello, World!")
+			.padding()
+			.frame(maxWidth: .infinity, maxHeight: .infinity)
+			.background(
+				RoundedRectangle(cornerRadius: 10)
+					.fill(item.color)
+			)
+	}
 }
 
 struct SizeKey: PreferenceKey {
-    static var defaultValue: CGSize?
-    static func reduce(value: inout CGSize?, nextValue: () -> CGSize?) {
-        value = value ?? nextValue()
-    }
+	static var defaultValue: CGSize?
+	static func reduce(value: inout CGSize?, nextValue: () -> CGSize?) {
+		value = value ?? nextValue()
+	}
 }
 
 extension View {
-    func measure() -> some View {
-        background(GeometryReader { proxy in
-            Color.clear.preference(key: SizeKey.self, value: proxy.size)
-        })
-    }
+	func measure() -> some View {
+		background(GeometryReader { proxy in
+			Color.clear.preference(key: SizeKey.self, value: proxy.size)
+		})
+	}
+}
+
+
+extension ViewStore where State == AppState, Action == AppAction {
+	
+	var animation: Animation {
+		Animation.default.speed(state.slowAnimations ? 0.2 : 1)
+	}
+	
+	func isClosing(_ id: Item.ID)->Bool { return id == state.currentID && state.isFullScreen }
+	
+	func onTap(for id: Item.ID) -> ()->() {
+		return {
+			withAnimation(self.animation) {
+				self.send(self.isClosing(id) ? AppAction.closingTapped  : .openTapped(id))
+			   }
+		}
+	}
+	
+	func onPinchChange(for id: Item.ID) -> (CGFloat)->() {
+		return { self.send(self.isClosing(id) ? .closePinchedChanged($0) : .openPinchedChanged(id,$0)) }
+	}
+
+	func onPinchEnded(for id: Item.ID) -> (CGFloat)->() {
+		return { _ in
+			withAnimation(self.animation) {
+				self.send(self.isClosing(id) ? .closePinchedEnded : .openPinchedEnded)
+			   }
+		}
+	}
+
+	func gesture(for id: Item.ID) -> some Gesture {
+		let pinch = MagnificationGesture()
+			.onChanged(self.onPinchChange(for: id))
+			.onEnded(self.onPinchEnded(for: id))
+		let tap = TapGesture()
+			.onEnded(self.onTap(for: id))
+		return pinch.exclusively(before: tap)
+	}
+	
+	func size(for id: Item.ID) -> CGSize {
+		guard id == state.currentID else { return state.cardSize }
+		return interpolatedSize(factor: state.magnification)
+	}
+	
+	func interpolatedSize(factor: CGFloat) -> CGSize {
+		let size = state.cardSize + (state.fullscreenSize - state.cardSize) * factor
+		return CGSize(width: max(0, size.width), height: max(0, size.height))
+	}
+	
+	var currentItem : Item? {
+		state.items.first(where: { $0.id == state.currentID })
+	}
 }
 
 struct ContentView: View {
-    let items = (0...3).map { _ in Item() }
-    @State var magnification: CGFloat = 1
-    @State var fullScreenMagnification: CGFloat = 1
-    @State var currentID: Item.ID? = nil
-    @State var endSize: CGSize = .zero
-    @State var fullScreen = false
-    let cardSize = CGSize(width: 80, height: 100)
-    
-    var currentItem: Item? {
-        items.first { $0.id == currentID }
-    }
-    
-    func size(for id: Item.ID) -> CGSize {
-        guard id == currentID else { return cardSize }
-        return interpolatedSize(factor: (magnification-1)/2)
-    }
-
-    func fullScreenSize() -> CGSize {
-        return interpolatedSize(factor: (fullScreenMagnification+1)/2)
-    }
-
-    func interpolatedSize(factor: CGFloat) -> CGSize {
-        let size = cardSize + (endSize - cardSize) * factor
-        return CGSize(width: max(0, size.width), height: max(0, size.height))
-    }
-    
-    @Namespace var ns
-    @State var slowAnimations = false
-    var animation: Animation {
-        Animation.default.speed(slowAnimations ? 0.2 : 1)
-    }
-    
-    var closingGesture: some Gesture {
-        let tap = TapGesture().onEnded {
-            withAnimation(animation) {
-                fullScreen = false
-            }
-        }
-        let pinch = MagnificationGesture()
-            .onChanged {
-                fullScreenMagnification = $0
-            }
-            .onEnded { _ in
-                withAnimation(animation) {
-                    if fullScreenMagnification < 0.8 {
-                        fullScreen = false
-                    } else {
-                        fullScreenMagnification = 1
-                    }
-                }
-                fullScreenMagnification = 1
-            }
-        return pinch.exclusively(before: tap)
-    }
-    
-    func openGesture(for id: Item.ID) -> some Gesture {
-        let pinch = MagnificationGesture()
-            .onChanged {
-                currentID = id
-                magnification = $0
-            }
-            .onEnded { _ in
-                withAnimation(animation) {
-                    if magnification > 1.5 {
-                        fullScreen = true
-                    } else {
-                        magnification = 1
-                    }
-                }
-                magnification = 1
-            }
-        let tap = TapGesture()
-            .onEnded {
-                withAnimation(animation) {
-                    currentID = id
-                    fullScreen = true
-                }
-            }
-        return pinch.exclusively(before: tap)
-    }
-    
-    var body: some View {
-        ZStack {
-            HStack {
-                ForEach(items) { item in
-                    let s = size(for: item.id)
-                    let shouldHide = fullScreen && currentID == item.id
-                    VStack {
-                        if !shouldHide {
-                            CardView(item: item)
-                                .matchedGeometryEffect(id: item.id, in: ns)
-                                .frame(width: s.width, height: s.height)
-                                .transition(.asymmetric(insertion: .identity, removal: .identity))
-                        }
-                    }
-                    .frame(width: cardSize.width, height: cardSize.height)
-                    .zIndex(item.id == currentID ? 2 : 1)
-                    .gesture(openGesture(for: item.id))
-                }
-            }
-            Color.clear.measure().onPreferenceChange(SizeKey.self, perform: { value in
-                endSize = value ?? .zero
-            })
-            if let item = currentItem, fullScreen {
-                let size = fullScreenSize()
-                CardView(item: item)
-                    .matchedGeometryEffect(id: item.id, in: ns)
-                    .gesture(closingGesture)
-                    .frame(width: size.width, height: size.height)
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-                    .transition(.asymmetric(insertion: .identity, removal: .identity))
-            }
-        }
-        .padding(50)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .toolbar {
-            Button("Slow Animations") {
-                slowAnimations.toggle()
-            }
-        }
-    }
+	let store: Store<AppState, AppAction>
+	
+	@Namespace var ns
+	
+	var body: some View {
+		WithViewStore(self.store) { viewStore in
+			ZStack {
+				HStack {
+					ForEach(viewStore.items) { item in
+						let isSelected = viewStore.currentID != item.id
+						ZStack {
+							if isSelected {
+								CardView(item: item)
+									.matchedGeometryEffect(id: item.id, in: ns, properties: [.frame,.position, .size])
+							}
+						}
+						.zIndex(isSelected ? 2 : 1)
+						.gesture(viewStore.gesture(for: item.id))
+						.frame(width: viewStore.cardSize.width, height: viewStore.cardSize.height)
+					}
+				}
+				
+				if let item = viewStore.currentItem {
+					let s = viewStore.size(for:item.id)
+					CardView(item: item)
+						.matchedGeometryEffect(id: item.id, in: ns, properties: [.frame,.position, .size])
+						.frame(width: s.width, height: s.height)
+						.zIndex(2)
+						.gesture(viewStore.gesture(for: item.id))
+				}
+				
+				Color.clear.measure().onPreferenceChange(SizeKey.self, perform: {
+					viewStore.send(.fullscreenSize($0))
+				})
+			}
+			.padding(50)
+			.frame(maxWidth: .infinity, maxHeight: .infinity)
+			.toolbar {
+				Button("Slow Animations") { viewStore.send(.toggleAnimations)}
+			}
+		}
+	}
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+	static var previews: some View {
+		ContentView(store: .init(initialState: .init(), reducer: appReducer, environment: {}()))
+	}
 }
+
