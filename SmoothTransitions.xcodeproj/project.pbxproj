@@ -7,82 +7,148 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8385E68026552C0F00EF804D /* SmoothTransitionsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8385E67F26552C0F00EF804D /* SmoothTransitionsApp.swift */; };
-		8385E68226552C0F00EF804D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8385E68126552C0F00EF804D /* ContentView.swift */; };
-		8385E68426552C1000EF804D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8385E68326552C1000EF804D /* Assets.xcassets */; };
-		8385E68726552C1000EF804D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8385E68626552C1000EF804D /* Preview Assets.xcassets */; };
-		B91B76952663420300E353DD /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = B91B76942663420300E353DD /* ComposableArchitecture */; };
+		B934BDB52665539400FBB872 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B934BDB42665539400FBB872 /* Assets.xcassets */; };
+		B934BDB82665539400FBB872 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B934BDB72665539400FBB872 /* Preview Assets.xcassets */; };
+		B934BDC42665539400FBB872 /* SmoothTransitionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B934BDC32665539400FBB872 /* SmoothTransitionsTests.swift */; };
+		B934BDCF2665539400FBB872 /* SmoothTransitionsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B934BDCE2665539400FBB872 /* SmoothTransitionsUITests.swift */; };
+		B934BDDE266553D400FBB872 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = B934BDDD266553D400FBB872 /* SnapshotTesting */; };
+		B934BDE12665541800FBB872 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = B934BDE02665541800FBB872 /* ComposableArchitecture */; };
+		B934BDE52665546A00FBB872 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B934BDE22665546A00FBB872 /* ContentView.swift */; };
+		B934BDE62665546A00FBB872 /* SmoothTransitionsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B934BDE32665546A00FBB872 /* SmoothTransitionsApp.swift */; };
+		B934BDE72665546A00FBB872 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B934BDE42665546A00FBB872 /* CardView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		B934BDC02665539400FBB872 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B934BDA52665539300FBB872 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B934BDAC2665539300FBB872;
+			remoteInfo = SmoothTransitions;
+		};
+		B934BDCB2665539400FBB872 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B934BDA52665539300FBB872 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B934BDAC2665539300FBB872;
+			remoteInfo = SmoothTransitions;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		8385E67C26552C0F00EF804D /* SmoothTransitions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmoothTransitions.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8385E67F26552C0F00EF804D /* SmoothTransitionsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmoothTransitionsApp.swift; sourceTree = "<group>"; };
-		8385E68126552C0F00EF804D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		8385E68326552C1000EF804D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8385E68626552C1000EF804D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		8385E68826552C1000EF804D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8385E68926552C1000EF804D /* SmoothTransitions.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SmoothTransitions.entitlements; sourceTree = "<group>"; };
+		B934BDAD2665539300FBB872 /* SmoothTransitions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmoothTransitions.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B934BDB42665539400FBB872 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B934BDB72665539400FBB872 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B934BDB92665539400FBB872 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B934BDBA2665539400FBB872 /* SmoothTransitions.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SmoothTransitions.entitlements; sourceTree = "<group>"; };
+		B934BDBF2665539400FBB872 /* SmoothTransitionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmoothTransitionsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B934BDC32665539400FBB872 /* SmoothTransitionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmoothTransitionsTests.swift; sourceTree = "<group>"; };
+		B934BDC52665539400FBB872 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B934BDCA2665539400FBB872 /* SmoothTransitionsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmoothTransitionsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B934BDCE2665539400FBB872 /* SmoothTransitionsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmoothTransitionsUITests.swift; sourceTree = "<group>"; };
+		B934BDD02665539400FBB872 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B934BDE22665546A00FBB872 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B934BDE32665546A00FBB872 /* SmoothTransitionsApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmoothTransitionsApp.swift; sourceTree = "<group>"; };
+		B934BDE42665546A00FBB872 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		8385E67926552C0F00EF804D /* Frameworks */ = {
+		B934BDAA2665539300FBB872 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B91B76952663420300E353DD /* ComposableArchitecture in Frameworks */,
+				B934BDE12665541800FBB872 /* ComposableArchitecture in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B934BDBC2665539400FBB872 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B934BDDE266553D400FBB872 /* SnapshotTesting in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B934BDC72665539400FBB872 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8385E67326552C0F00EF804D = {
+		B934BDA42665539300FBB872 = {
 			isa = PBXGroup;
 			children = (
-				8385E67E26552C0F00EF804D /* SmoothTransitions */,
-				8385E67D26552C0F00EF804D /* Products */,
+				B934BDAF2665539300FBB872 /* SmoothTransitions */,
+				B934BDC22665539400FBB872 /* SmoothTransitionsTests */,
+				B934BDCD2665539400FBB872 /* SmoothTransitionsUITests */,
+				B934BDAE2665539300FBB872 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		8385E67D26552C0F00EF804D /* Products */ = {
+		B934BDAE2665539300FBB872 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8385E67C26552C0F00EF804D /* SmoothTransitions.app */,
+				B934BDAD2665539300FBB872 /* SmoothTransitions.app */,
+				B934BDBF2665539400FBB872 /* SmoothTransitionsTests.xctest */,
+				B934BDCA2665539400FBB872 /* SmoothTransitionsUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8385E67E26552C0F00EF804D /* SmoothTransitions */ = {
+		B934BDAF2665539300FBB872 /* SmoothTransitions */ = {
 			isa = PBXGroup;
 			children = (
-				8385E67F26552C0F00EF804D /* SmoothTransitionsApp.swift */,
-				8385E68126552C0F00EF804D /* ContentView.swift */,
-				8385E68326552C1000EF804D /* Assets.xcassets */,
-				8385E68826552C1000EF804D /* Info.plist */,
-				8385E68926552C1000EF804D /* SmoothTransitions.entitlements */,
-				8385E68526552C1000EF804D /* Preview Content */,
+				B934BDE42665546A00FBB872 /* CardView.swift */,
+				B934BDE22665546A00FBB872 /* ContentView.swift */,
+				B934BDE32665546A00FBB872 /* SmoothTransitionsApp.swift */,
+				B934BDB42665539400FBB872 /* Assets.xcassets */,
+				B934BDB92665539400FBB872 /* Info.plist */,
+				B934BDBA2665539400FBB872 /* SmoothTransitions.entitlements */,
+				B934BDB62665539400FBB872 /* Preview Content */,
 			);
 			path = SmoothTransitions;
 			sourceTree = "<group>";
 		};
-		8385E68526552C1000EF804D /* Preview Content */ = {
+		B934BDB62665539400FBB872 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				8385E68626552C1000EF804D /* Preview Assets.xcassets */,
+				B934BDB72665539400FBB872 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		B934BDC22665539400FBB872 /* SmoothTransitionsTests */ = {
+			isa = PBXGroup;
+			children = (
+				B934BDC32665539400FBB872 /* SmoothTransitionsTests.swift */,
+				B934BDC52665539400FBB872 /* Info.plist */,
+			);
+			path = SmoothTransitionsTests;
+			sourceTree = "<group>";
+		};
+		B934BDCD2665539400FBB872 /* SmoothTransitionsUITests */ = {
+			isa = PBXGroup;
+			children = (
+				B934BDCE2665539400FBB872 /* SmoothTransitionsUITests.swift */,
+				B934BDD02665539400FBB872 /* Info.plist */,
+			);
+			path = SmoothTransitionsUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8385E67B26552C0F00EF804D /* SmoothTransitions */ = {
+		B934BDAC2665539300FBB872 /* SmoothTransitions */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8385E68C26552C1000EF804D /* Build configuration list for PBXNativeTarget "SmoothTransitions" */;
+			buildConfigurationList = B934BDD32665539400FBB872 /* Build configuration list for PBXNativeTarget "SmoothTransitions" */;
 			buildPhases = (
-				8385E67826552C0F00EF804D /* Sources */,
-				8385E67926552C0F00EF804D /* Frameworks */,
-				8385E67A26552C0F00EF804D /* Resources */,
+				B934BDA92665539300FBB872 /* Sources */,
+				B934BDAA2665539300FBB872 /* Frameworks */,
+				B934BDAB2665539300FBB872 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -90,27 +156,75 @@
 			);
 			name = SmoothTransitions;
 			packageProductDependencies = (
-				B91B76942663420300E353DD /* ComposableArchitecture */,
+				B934BDE02665541800FBB872 /* ComposableArchitecture */,
 			);
 			productName = SmoothTransitions;
-			productReference = 8385E67C26552C0F00EF804D /* SmoothTransitions.app */;
+			productReference = B934BDAD2665539300FBB872 /* SmoothTransitions.app */;
 			productType = "com.apple.product-type.application";
+		};
+		B934BDBE2665539400FBB872 /* SmoothTransitionsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B934BDD62665539400FBB872 /* Build configuration list for PBXNativeTarget "SmoothTransitionsTests" */;
+			buildPhases = (
+				B934BDBB2665539400FBB872 /* Sources */,
+				B934BDBC2665539400FBB872 /* Frameworks */,
+				B934BDBD2665539400FBB872 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B934BDC12665539400FBB872 /* PBXTargetDependency */,
+			);
+			name = SmoothTransitionsTests;
+			packageProductDependencies = (
+				B934BDDD266553D400FBB872 /* SnapshotTesting */,
+			);
+			productName = SmoothTransitionsTests;
+			productReference = B934BDBF2665539400FBB872 /* SmoothTransitionsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		B934BDC92665539400FBB872 /* SmoothTransitionsUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B934BDD92665539400FBB872 /* Build configuration list for PBXNativeTarget "SmoothTransitionsUITests" */;
+			buildPhases = (
+				B934BDC62665539400FBB872 /* Sources */,
+				B934BDC72665539400FBB872 /* Frameworks */,
+				B934BDC82665539400FBB872 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B934BDCC2665539400FBB872 /* PBXTargetDependency */,
+			);
+			name = SmoothTransitionsUITests;
+			productName = SmoothTransitionsUITests;
+			productReference = B934BDCA2665539400FBB872 /* SmoothTransitionsUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		8385E67426552C0F00EF804D /* Project object */ = {
+		B934BDA52665539300FBB872 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1240;
-				LastUpgradeCheck = 1240;
+				LastSwiftUpdateCheck = 1250;
+				LastUpgradeCheck = 1250;
 				TargetAttributes = {
-					8385E67B26552C0F00EF804D = {
-						CreatedOnToolsVersion = 12.4;
+					B934BDAC2665539300FBB872 = {
+						CreatedOnToolsVersion = 12.5;
+						LastSwiftMigration = 1250;
+					};
+					B934BDBE2665539400FBB872 = {
+						CreatedOnToolsVersion = 12.5;
+						TestTargetID = B934BDAC2665539300FBB872;
+					};
+					B934BDC92665539400FBB872 = {
+						CreatedOnToolsVersion = 12.5;
+						TestTargetID = B934BDAC2665539300FBB872;
 					};
 				};
 			};
-			buildConfigurationList = 8385E67726552C0F00EF804D /* Build configuration list for PBXProject "SmoothTransitions" */;
+			buildConfigurationList = B934BDA82665539300FBB872 /* Build configuration list for PBXProject "SmoothTransitions" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -118,45 +232,92 @@
 				en,
 				Base,
 			);
-			mainGroup = 8385E67326552C0F00EF804D;
+			mainGroup = B934BDA42665539300FBB872;
 			packageReferences = (
-				B91B76932663420300E353DD /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+				B934BDDC266553D400FBB872 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
+				B934BDDF2665541800FBB872 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 			);
-			productRefGroup = 8385E67D26552C0F00EF804D /* Products */;
+			productRefGroup = B934BDAE2665539300FBB872 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8385E67B26552C0F00EF804D /* SmoothTransitions */,
+				B934BDAC2665539300FBB872 /* SmoothTransitions */,
+				B934BDBE2665539400FBB872 /* SmoothTransitionsTests */,
+				B934BDC92665539400FBB872 /* SmoothTransitionsUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		8385E67A26552C0F00EF804D /* Resources */ = {
+		B934BDAB2665539300FBB872 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8385E68726552C1000EF804D /* Preview Assets.xcassets in Resources */,
-				8385E68426552C1000EF804D /* Assets.xcassets in Resources */,
+				B934BDB82665539400FBB872 /* Preview Assets.xcassets in Resources */,
+				B934BDB52665539400FBB872 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B934BDBD2665539400FBB872 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B934BDC82665539400FBB872 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		8385E67826552C0F00EF804D /* Sources */ = {
+		B934BDA92665539300FBB872 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8385E68226552C0F00EF804D /* ContentView.swift in Sources */,
-				8385E68026552C0F00EF804D /* SmoothTransitionsApp.swift in Sources */,
+				B934BDE62665546A00FBB872 /* SmoothTransitionsApp.swift in Sources */,
+				B934BDE72665546A00FBB872 /* CardView.swift in Sources */,
+				B934BDE52665546A00FBB872 /* ContentView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B934BDBB2665539400FBB872 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B934BDC42665539400FBB872 /* SmoothTransitionsTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B934BDC62665539400FBB872 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B934BDCF2665539400FBB872 /* SmoothTransitionsUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		B934BDC12665539400FBB872 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B934BDAC2665539300FBB872 /* SmoothTransitions */;
+			targetProxy = B934BDC02665539400FBB872 /* PBXContainerItemProxy */;
+		};
+		B934BDCC2665539400FBB872 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B934BDAC2665539300FBB872 /* SmoothTransitions */;
+			targetProxy = B934BDCB2665539400FBB872 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
-		8385E68A26552C1000EF804D /* Debug */ = {
+		B934BDD12665539400FBB872 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -207,7 +368,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MACOSX_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -217,7 +378,7 @@
 			};
 			name = Debug;
 		};
-		8385E68B26552C1000EF804D /* Release */ = {
+		B934BDD22665539400FBB872 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -262,7 +423,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MACOSX_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
@@ -271,15 +432,18 @@
 			};
 			name = Release;
 		};
-		8385E68D26552C1000EF804D /* Debug */ = {
+		B934BDD42665539400FBB872 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SmoothTransitions/SmoothTransitions.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"SmoothTransitions/Preview Content\"";
+				DEVELOPMENT_TEAM = YNTE9Q8FQT;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = SmoothTransitions/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -287,21 +451,25 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = io.objc.SmoothTransitions;
+				PRODUCT_BUNDLE_IDENTIFIER = com.todd.SmoothTransitions;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
-		8385E68E26552C1000EF804D /* Release */ = {
+		B934BDD52665539400FBB872 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SmoothTransitions/SmoothTransitions.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"SmoothTransitions/Preview Content\"";
+				DEVELOPMENT_TEAM = YNTE9Q8FQT;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = SmoothTransitions/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -309,29 +477,131 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = io.objc.SmoothTransitions;
+				PRODUCT_BUNDLE_IDENTIFIER = com.todd.SmoothTransitions;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		B934BDD72665539400FBB872 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = YNTE9Q8FQT;
+				INFOPLIST_FILE = SmoothTransitionsTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.todd.SmoothTransitionsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SmoothTransitions.app/Contents/MacOS/SmoothTransitions";
+			};
+			name = Debug;
+		};
+		B934BDD82665539400FBB872 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = YNTE9Q8FQT;
+				INFOPLIST_FILE = SmoothTransitionsTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.todd.SmoothTransitionsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SmoothTransitions.app/Contents/MacOS/SmoothTransitions";
+			};
+			name = Release;
+		};
+		B934BDDA2665539400FBB872 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = YNTE9Q8FQT;
+				INFOPLIST_FILE = SmoothTransitionsUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.todd.SmoothTransitionsUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = SmoothTransitions;
+			};
+			name = Debug;
+		};
+		B934BDDB2665539400FBB872 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = YNTE9Q8FQT;
+				INFOPLIST_FILE = SmoothTransitionsUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.todd.SmoothTransitionsUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = SmoothTransitions;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8385E67726552C0F00EF804D /* Build configuration list for PBXProject "SmoothTransitions" */ = {
+		B934BDA82665539300FBB872 /* Build configuration list for PBXProject "SmoothTransitions" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8385E68A26552C1000EF804D /* Debug */,
-				8385E68B26552C1000EF804D /* Release */,
+				B934BDD12665539400FBB872 /* Debug */,
+				B934BDD22665539400FBB872 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8385E68C26552C1000EF804D /* Build configuration list for PBXNativeTarget "SmoothTransitions" */ = {
+		B934BDD32665539400FBB872 /* Build configuration list for PBXNativeTarget "SmoothTransitions" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8385E68D26552C1000EF804D /* Debug */,
-				8385E68E26552C1000EF804D /* Release */,
+				B934BDD42665539400FBB872 /* Debug */,
+				B934BDD52665539400FBB872 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B934BDD62665539400FBB872 /* Build configuration list for PBXNativeTarget "SmoothTransitionsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B934BDD72665539400FBB872 /* Debug */,
+				B934BDD82665539400FBB872 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B934BDD92665539400FBB872 /* Build configuration list for PBXNativeTarget "SmoothTransitionsUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B934BDDA2665539400FBB872 /* Debug */,
+				B934BDDB2665539400FBB872 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -339,9 +609,17 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		B91B76932663420300E353DD /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+		B934BDDC266553D400FBB872 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.9.0;
+			};
+		};
+		B934BDDF2665541800FBB872 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 0.18.0;
@@ -350,12 +628,17 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		B91B76942663420300E353DD /* ComposableArchitecture */ = {
+		B934BDDD266553D400FBB872 /* SnapshotTesting */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B91B76932663420300E353DD /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			package = B934BDDC266553D400FBB872 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = SnapshotTesting;
+		};
+		B934BDE02665541800FBB872 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B934BDDF2665541800FBB872 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
 			productName = ComposableArchitecture;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
-	rootObject = 8385E67426552C0F00EF804D /* Project object */;
+	rootObject = B934BDA52665539300FBB872 /* Project object */;
 }

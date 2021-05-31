@@ -9,7 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct AppState : Equatable {
-	let items = (0...3).map { _ in Item() }
+	let items = [Color.yellow,Color.red,Color.green,Color.purple].map { Item(id:UUID(), color:$0) }
 	let cardSize = CGSize(width: 80, height: 100)
 	var magnification: CGFloat = 1
 	var isFullScreen = false
@@ -86,25 +86,6 @@ extension CGSize {
 	
 	static func +(lhs: Self, rhs: Self) -> Self {
 		CGSize(width: lhs.width+rhs.width, height: lhs.height+rhs.height)
-	}
-}
-
-struct Item: Identifiable, Equatable {
-	var id = UUID()
-	var color = Color(hue: .random(in: 0...1), saturation: 0.9, brightness: 0.9)
-}
-
-struct CardView: View, Equatable {
-	var item: Item
-	
-	var body: some View {
-		Text("Hello, World!")
-			.padding()
-			.frame(maxWidth: .infinity, maxHeight: .infinity)
-			.background(
-				RoundedRectangle(cornerRadius: 10)
-					.fill(item.color)
-			)
 	}
 }
 
