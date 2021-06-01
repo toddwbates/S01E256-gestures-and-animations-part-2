@@ -15,6 +15,7 @@
 		B934BDE52665546A00FBB872 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B934BDE22665546A00FBB872 /* ContentView.swift */; };
 		B934BDE62665546A00FBB872 /* SmoothTransitionsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B934BDE32665546A00FBB872 /* SmoothTransitionsApp.swift */; };
 		B934BDE72665546A00FBB872 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B934BDE42665546A00FBB872 /* CardView.swift */; };
+		B934BDE92665792C00FBB872 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = B934BDE82665792C00FBB872 /* Util.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +40,7 @@
 		B934BDE22665546A00FBB872 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B934BDE32665546A00FBB872 /* SmoothTransitionsApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmoothTransitionsApp.swift; sourceTree = "<group>"; };
 		B934BDE42665546A00FBB872 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		B934BDE82665792C00FBB872 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 			children = (
 				B934BDE42665546A00FBB872 /* CardView.swift */,
 				B934BDE22665546A00FBB872 /* ContentView.swift */,
+				B934BDE82665792C00FBB872 /* Util.swift */,
 				B934BDE32665546A00FBB872 /* SmoothTransitionsApp.swift */,
 				B934BDB42665539400FBB872 /* Assets.xcassets */,
 				B934BDB92665539400FBB872 /* Info.plist */,
@@ -223,6 +226,7 @@
 				B934BDE62665546A00FBB872 /* SmoothTransitionsApp.swift in Sources */,
 				B934BDE72665546A00FBB872 /* CardView.swift in Sources */,
 				B934BDE52665546A00FBB872 /* ContentView.swift in Sources */,
+				B934BDE92665792C00FBB872 /* Util.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,16 +9,20 @@ import SwiftUI
 import ComposableArchitecture
 
 struct AppState : Equatable {
-	let items = [Color.yellow,Color.red,Color.green,Color.purple].map { Item(id:UUID(), color:$0) }
+	let items : [Item]
 	let cardSize = CGSize(width: 80, height: 100)
 	var magnification: CGFloat = 1
 	var isFullScreen = false
 	var currentID: Item.ID? = nil
 	var fullscreenSize: CGSize = .zero
 	var slowAnimations = false
+	
+	init(_ uuid: ()->UUID) {
+		items = [Color.yellow,.red,.green,.purple].map { Item(id:uuid(), color:$0) }
+	}
 }
 
-enum AppAction{
+enum AppAction : Equatable{
 	case closingTapped
 	case openTapped(Item.ID)
 	case openPinchedChanged(Item.ID, CGFloat)
@@ -26,10 +30,14 @@ enum AppAction{
 	case closePinchedChanged(CGFloat)
 	case closePinchedEnded
 	case toggleAnimations
-	case fullscreenSize(CGSize?)
+	case fullscreenSize(CGSize)
 }
 
-let appReducer = Reducer<AppState, AppAction, ()>() {state,action,_ in
+struct AppEnvironment {
+	let uuid: ()->UUID
+}
+
+let appReducer = Reducer<AppState, AppAction, AppEnvironment>() {state,action,_ in
 	switch action {
 	case .closingTapped:
 		state.magnification = 0
@@ -64,44 +72,11 @@ let appReducer = Reducer<AppState, AppAction, ()>() {state,action,_ in
 	case .toggleAnimations:
 		state.slowAnimations.toggle()
 	case let .fullscreenSize(endSize):
-		state.fullscreenSize = endSize ?? .zero
+		state.fullscreenSize = endSize
 		
 	}
 	
 	return .none
-}
-
-extension CGSize {
-	static func /(lhs: Self, rhs: CGFloat) -> Self {
-		CGSize(width: lhs.width/rhs, height: lhs.height/rhs)
-	}
-	
-	static func *(lhs: Self, rhs: CGFloat) -> Self {
-		CGSize(width: lhs.width*rhs, height: lhs.height*rhs)
-	}
-	
-	static func -(lhs: Self, rhs: Self) -> Self {
-		CGSize(width: lhs.width-rhs.width, height: lhs.height-rhs.height)
-	}
-	
-	static func +(lhs: Self, rhs: Self) -> Self {
-		CGSize(width: lhs.width+rhs.width, height: lhs.height+rhs.height)
-	}
-}
-
-struct SizeKey: PreferenceKey {
-	static var defaultValue: CGSize?
-	static func reduce(value: inout CGSize?, nextValue: () -> CGSize?) {
-		value = value ?? nextValue()
-	}
-}
-
-extension View {
-	func measure() -> some View {
-		background(GeometryReader { proxy in
-			Color.clear.preference(key: SizeKey.self, value: proxy.size)
-		})
-	}
 }
 
 
@@ -142,16 +117,11 @@ extension ViewStore where State == AppState, Action == AppAction {
 		return pinch.exclusively(before: tap)
 	}
 	
-	func size(for id: Item.ID) -> CGSize {
-		guard id == state.currentID else { return state.cardSize }
-		return interpolatedSize(factor: state.magnification)
-	}
-	
-	func interpolatedSize(factor: CGFloat) -> CGSize {
-		let size = state.cardSize + (state.fullscreenSize - state.cardSize) * factor
+	func scaledSize() -> CGSize {
+		let size = state.cardSize + (state.fullscreenSize - state.cardSize) * state.magnification
 		return CGSize(width: max(0, size.width), height: max(0, size.height))
 	}
-	
+		
 	var currentItem : Item? {
 		state.items.first(where: { $0.id == state.currentID })
 	}
@@ -181,7 +151,7 @@ struct ContentView: View {
 				}
 				
 				if let item = viewStore.currentItem {
-					let s = viewStore.size(for:item.id)
+					let s = viewStore.scaledSize()
 					CardView(item: item)
 						.matchedGeometryEffect(id: item.id, in: ns, properties: [.frame,.position, .size])
 						.frame(width: s.width, height: s.height)
@@ -189,14 +159,14 @@ struct ContentView: View {
 						.gesture(viewStore.gesture(for: item.id))
 				}
 				
-				Color.clear.measure().onPreferenceChange(SizeKey.self, perform: {
-					viewStore.send(.fullscreenSize($0))
-				})
+				Color.clear.measure().onPreferenceChange(SizeKey.self) {
+					viewStore.send(.fullscreenSize($0 ?? .zero))
+				}
 			}
 			.padding(50)
 			.frame(maxWidth: .infinity, maxHeight: .infinity)
 			.toolbar {
-				Button("Slow Animations") { viewStore.send(.toggleAnimations)}
+				Button("Slow Animations") { viewStore.send(.toggleAnimations) }
 			}
 		}
 	}
@@ -204,7 +174,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
 	static var previews: some View {
-		ContentView(store: .init(initialState: .init(), reducer: appReducer, environment: {}()))
+		ContentView(store: .init(initialState: .init(UUID.incrementing), reducer: appReducer, environment: .init(uuid: UUID.incrementing)))
 	}
 }
 
