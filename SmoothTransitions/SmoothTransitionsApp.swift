@@ -2,7 +2,7 @@
 //  SmoothTransitionsApp.swift
 //  SmoothTransitions
 //
-//  Created by Chris Eidhof on 19.05.21.
+//  Created by Todd Bates on 6/2/21.
 //
 
 import SwiftUI
