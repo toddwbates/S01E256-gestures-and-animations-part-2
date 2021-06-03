@@ -65,6 +65,7 @@ extension CGSize {
 struct SizeKey: PreferenceKey {
 	static var defaultValue: CGSize?
 	static func reduce(value: inout CGSize?, nextValue: () -> CGSize?) {
+		// first value wins
 		value = value ?? nextValue()
 	}
 }
