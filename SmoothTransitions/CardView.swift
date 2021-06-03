@@ -25,17 +25,18 @@ struct CardView: View {
 					.fill(item.color)
 			)
 			.gesture(MagnificationGesture()
-						.onChanged({ action(.pinchChanged($0)) })
-			   .onEnded({ action(.pinchEnded($0)) })
+						.onChanged(map(CardAction.pinchChanged,action))
+			   .onEnded(map(CardAction.pinchEnded,action))
 			   .exclusively(
 				 before: TapGesture()
-					.onEnded({ action(.tapped) })))
+					.onEnded(bind(.tapped,to: action))))
 
 	}
 }
 
 struct CardView_Previews: PreviewProvider {
+	static let action : (CardAction)->() = { _ in }
     static var previews: some View {
-		CardView(item: .init(id: .init(), color: .blue), action: { _ in })
+		CardView(item: .init(id: .init(), color: .blue), action: action)
     }
 }

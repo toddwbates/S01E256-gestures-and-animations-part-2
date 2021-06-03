@@ -102,4 +102,13 @@ class SmoothTransitionsTests: XCTestCase {
 		assertSnapshot(matching: view.toVC(), as: .image)
 	}
 
+	func testCardPreview() throws {
+		CardView_Previews.action(.tapped)
+		
+		let view = CardView_Previews.previews
+			.frame(width: 300, height: 200)
+		
+		assertSnapshot(matching: view.toVC(), as: .image)
+	}
+
 }
