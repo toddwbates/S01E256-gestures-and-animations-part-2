@@ -35,8 +35,10 @@ struct CardView: View {
 }
 
 struct CardView_Previews: PreviewProvider {
-	static let action : (CardAction)->() = { _ in }
+	static let no_op : (CardAction)->() = { _ in }
+	
     static var previews: some View {
-		CardView(item: .init(id: .init(), color: .blue), action: action)
+		CardView(item: .init(id: .init(), color: .blue), action: no_op)
+		CardView(item: .init(id: .init(), color: .red), action: no_op)
     }
 }

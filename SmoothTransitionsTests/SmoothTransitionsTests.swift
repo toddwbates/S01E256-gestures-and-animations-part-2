@@ -13,9 +13,9 @@ import ComposableArchitecture
 @testable import SmoothTransitions
 
 extension SwiftUI.View {
-	func toVC() -> NSView {
+	func toVC(width:Int = 400,height:Int = 100) -> NSView {
 		let vc = NSHostingView(rootView: self)
-		vc.frame = CGRect(x: 0, y: 0, width: 400, height: 100)
+		vc.frame = CGRect(x: 0, y: 0, width: width, height: height)
 		return vc
 	}
 }
@@ -103,12 +103,12 @@ class SmoothTransitionsTests: XCTestCase {
 	}
 
 	func testCardPreview() throws {
-		CardView_Previews.action(.tapped)
+		// exicutes action
+		CardView_Previews.no_op(.tapped)
 		
 		let view = CardView_Previews.previews
-			.frame(width: 300, height: 200)
 		
-		assertSnapshot(matching: view.toVC(), as: .image)
+		assertSnapshot(matching: view.toVC(width: 100, height: 200), as: .image)
 	}
 
 }
