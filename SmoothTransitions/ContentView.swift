@@ -69,7 +69,6 @@ enum AppAction : Equatable{
 }
 
 struct AppEnvironment {
-	let uuid: ()->UUID
 }
 
 let appReducer = Reducer<AppState, AppAction, AppEnvironment>() {state,action,_ in
@@ -158,7 +157,7 @@ struct ContentView_Previews: PreviewProvider {
 		let uuid = UUID.incrementing
 		ContentView(store: .init(initialState: .init([Color.red,.green,.blue].map { Item(id:uuid(), color:$0) }),
 								 reducer: appReducer,
-								 environment: .init(uuid: UUID.incrementing)))
+								 environment: .init()))
 	}
 }
 

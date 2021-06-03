@@ -11,7 +11,7 @@ import SwiftUI
 struct SmoothTransitionsApp: App {
     var body: some Scene {
         WindowGroup {
-			ContentView(store: .init(initialState: .init(UUID.incrementing), reducer: appReducer, environment: .init(uuid: UUID.incrementing)))
+			ContentView(store: .init(initialState: .init(UUID.incrementing), reducer: appReducer, environment: .init()))
         }
     }
 }

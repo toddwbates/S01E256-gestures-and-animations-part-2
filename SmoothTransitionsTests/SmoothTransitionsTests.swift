@@ -26,7 +26,7 @@ class SmoothTransitionsTests: XCTestCase {
 		let store = TestStore(
 			initialState: AppState(UUID.incrementing),
 			reducer: appReducer,
-			environment: .init(uuid: UUID.incrementing)
+			environment: .init()
 		)
 		
 		store.send(.fullscreenSize(.init(width: 400, height: 100))) {
@@ -79,19 +79,19 @@ class SmoothTransitionsTests: XCTestCase {
 		
 		let closedView = ContentView(store: .init(initialState: state,
 												   reducer: appReducer,
-												   environment: .init(uuid: UUID.incrementing)))
+												   environment: .init()))
 		assertSnapshot(matching: closedView.toVC(), as: .image)
 		
 		state.current = .fullsize(UUID.with(index: 1))
 		let openView = ContentView(store: .init(initialState: state,
 												   reducer: appReducer,
-												   environment: .init(uuid: UUID.incrementing)))
+												   environment: .init()))
 		assertSnapshot(matching: openView.toVC(), as: .image)
 		
 		state.current = .scale(UUID.with(index: 1), 0.5)
 		let scaledVIew = ContentView(store: .init(initialState: state,
 												   reducer: appReducer,
-												   environment: .init(uuid: UUID.incrementing)))
+												   environment: .init()))
 		assertSnapshot(matching: scaledVIew.toVC(), as: .image)
 	}
 	
