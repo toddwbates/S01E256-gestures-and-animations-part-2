@@ -32,8 +32,17 @@ class SmoothTransitionsTests: XCTestCase {
 		store.send(.fullscreenSize(.init(width: 400, height: 100))) {
 			$0.fullscreenSize = CGSize(width: 400, height: 100)
 		}
+		store.send(.fullscreenSize(nil)) {
+			$0.fullscreenSize = .zero
+		}
 		store.send(.toggleAnimations) {
-			$0.slowAnimations.toggle()
+			$0.animationnDuration = 1
+		}
+		store.send(.toggleAnimations) {
+			$0.animationnDuration = 0.2
+		}
+		store.send(.toggleAnimations) {
+			$0.animationnDuration = 1
 		}
 		store.send(.open(uuid1, .tapped)) {
 			$0.current = .fullsize(uuid1)
@@ -84,6 +93,13 @@ class SmoothTransitionsTests: XCTestCase {
 												   reducer: appReducer,
 												   environment: .init(uuid: UUID.incrementing)))
 		assertSnapshot(matching: scaledVIew.toVC(), as: .image)
-
 	}
+	
+	func testContentView() throws {
+		let view = ContentView_Previews.previews
+			.frame(width: 300, height: 200)
+		
+		assertSnapshot(matching: view.toVC(), as: .image)
+	}
+
 }

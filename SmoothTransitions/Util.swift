@@ -8,6 +8,26 @@
 import Foundation
 import SwiftUI
 
+func bind<A, C>(_ a:A,to f: @escaping (A) -> C) -> () -> C {
+   { f(a) }
+}
+
+func map<A,B,C>(_ g:@escaping (A)->B,_ f:@escaping (B)->C) -> (A)->C {
+	{ f(g($0)) }
+}
+
+func curryA<A, B, C>(_ f: @escaping (A, B) -> C) -> (A) -> (B) -> C {
+   { a in { b in f(a, b) } }
+}
+
+func curryB<A, B, C>(_ f: @escaping (A, B) -> C) -> (B) -> (A) -> C {
+   { b in { a in f(a, b) } }
+}
+
+func withAnimation<A,Result>(_ animation: Animation? = .default, _ body:@escaping (A) -> Result) -> (A)->Result {
+	{ value in withAnimation(animation,{ body(value) }) }
+}
+
 extension UUID {
   /// A deterministic, auto-incrementing "UUID" generator for testing.
   static var incrementing: () -> UUID {

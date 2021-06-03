@@ -28,14 +28,11 @@ extension Current {
 	
 	func scaledSize(with fullscreenSize: CGSize) -> CGSize {
 		var size = CGSize(width: 80, height: 100)
-		switch self {
-		case .none:
-			break
-		case let .scale(_, delta):
+		if case .fullsize(_) = self {
+			size = fullscreenSize
+		} else if case let .scale(_, delta) = self {
 			size = size + (fullscreenSize - size) * delta
 			size = CGSize(width: max(0, size.width), height: max(0, size.height))
-		case .fullsize(_):
-			size = fullscreenSize
 		}
 		
 		return size
@@ -47,7 +44,11 @@ struct AppState : Equatable {
 	var items : [Item]
 	var current = Current.none
 	var fullscreenSize: CGSize = .zero
-	var slowAnimations = false
+	var animationnDuration = 0.2
+	
+	init(_ items: [Item]) {
+		self.items = items
+	}
 	
 	init(_ uuid: ()->UUID) {
 		items = [Color.yellow,.red,.green,.purple].map { Item(id:uuid(), color:$0) }
@@ -64,7 +65,7 @@ enum AppAction : Equatable{
 	case open(Item.ID, CardAction)
 	case close(Item.ID, CardAction)
 	case toggleAnimations
-	case fullscreenSize(CGSize)
+	case fullscreenSize(CGSize?)
 }
 
 struct AppEnvironment {
@@ -89,47 +90,22 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>() {state,action,_ 
 		state.current = delta < 0.7 ? .none : .fullsize(id)
 
 	case .toggleAnimations:
-		state.slowAnimations.toggle()
+		state.animationnDuration = state.animationnDuration == 1 ? 0.2 : 1
 	case let .fullscreenSize(endSize):
-		state.fullscreenSize = endSize
+		state.fullscreenSize = endSize ?? .zero
 		
 	}
 	
 	return .none
 }
 
-
 extension ViewStore where State == AppState, Action == AppAction {
-	
-	var animation: Animation {
-		Animation.default.speed(state.slowAnimations ? 0.2 : 1)
-	}
-	
-	func onTap(for id: Item.ID, action:@escaping (Item.ID, CardAction)->AppAction) -> ()->() {
-		return {
-			withAnimation(self.animation) {
-				self.send(action(id,.tapped))
-			}
-		}
-	}
 		
-	func onDelta(for id: Item.ID, action:@escaping (Item.ID, CardAction)->AppAction,_ cardAction:@escaping (CGFloat)->CardAction) -> (CGFloat)->() {
-		return { delta in
-			withAnimation(self.animation) {
-				self.send(action(id,cardAction(delta)))
-			}
-		}
+	func onTap(for id: Item.ID, action:@escaping (Item.ID, CardAction)->AppAction) -> (CardAction)->() {
+		let a2 = map(curryA(action)(id),self.send)
+		let animation = Animation.default.speed(state.animationnDuration)
+		return withAnimation(animation,a2)
 	}
-	
-	func gesture(for id: Item.ID, action:@escaping (Item.ID, CardAction)->AppAction) -> some Gesture {
-		let pinch = MagnificationGesture()
-			.onChanged(self.onDelta(for: id, action: action, CardAction.pinchChanged))
-			.onEnded(self.onDelta(for: id, action: action, CardAction.pinchEnded))
-		let tap = TapGesture()
-			.onEnded(self.onTap(for: id, action: action))
-		return pinch.exclusively(before: tap)
-	}
-	
 }
 
 struct ContentView: View {
@@ -147,33 +123,31 @@ struct ContentView: View {
 						let isSelected = selectedItem == item
 						ZStack {
 							if !isSelected {
-								CardView(item: item)
+								CardView(item: item, action: viewStore.onTap(for: item.id,action: AppAction.open))
 									.matchedGeometryEffect(id: item.id, in: ns)
 							}
 						}
 						.zIndex(isSelected ? 2 : 1)
-						.gesture(viewStore.gesture(for: item.id, action: AppAction.open))
 						.frame(width: 80, height: 100)
 					}
 				}
 				
 				if let item = selectedItem {
 					let s = viewStore.current.scaledSize(with: viewStore.fullscreenSize)
-					CardView(item: item)
+					CardView(item: item, action: viewStore.onTap(for: item.id,action: AppAction.close))
 						.matchedGeometryEffect(id: item.id, in: ns)
 						.frame(width: s.width, height: s.height)
 						.zIndex(2)
-						.gesture(viewStore.gesture(for: item.id, action: AppAction.close))
 				}
 				
 				Color.clear.measure().onPreferenceChange(SizeKey.self) {
-					viewStore.send(.fullscreenSize($0 ?? .zero))
+					viewStore.send(.fullscreenSize($0))
 				}
 			}
 			.padding(50)
 			.frame(maxWidth: .infinity, maxHeight: .infinity)
 			.toolbar {
-				Button("Slow Animations") { viewStore.send(.toggleAnimations) }
+				Button("Slow Animations",action: bind(.toggleAnimations,to: viewStore.send))
 			}
 		}
 	}
@@ -181,7 +155,10 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
 	static var previews: some View {
-		ContentView(store: .init(initialState: .init(UUID.incrementing), reducer: appReducer, environment: .init(uuid: UUID.incrementing)))
+		let uuid = UUID.incrementing
+		ContentView(store: .init(initialState: .init([Color.red,.green,.blue].map { Item(id:uuid(), color:$0) }),
+								 reducer: appReducer,
+								 environment: .init(uuid: UUID.incrementing)))
 	}
 }
 
